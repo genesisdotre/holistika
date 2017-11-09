@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <style>
+      body{
+        margin: 0;
+      }
+      canvas{
+        width: 100%;
+        height: 100%
+      }
+
+      .thumbnail {
+        width: 33.3333333%;
+        display: block;
+        float: left;
+      }
+
+      @media (max-width: 600px) {
+        .thumbnail {
+          width: 50%;
+        }
+      }
+
+      .thumbnail img {
+        width: 100%;
+      }
+
+      .back {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        color: white;
+        text-decoration: none;
+        background-color: rgba(200,200,200,0.7);
+        padding: 5px 10px;
+        font-size: 0.8em;
+        font-family: sans-serif;
+      }
+
+    </style>
+    <link rel="stylesheet" href="lib/iosOverlay/iosOverlay.css">
+  </head>
+  <body  ng-app="app">
+    
+    <div ui-view></div>
+
+  </body>
+
+  <script src="angular.js"></script>
+  <script src="angular-ui-router.min.js"></script>
+
+  <script src="three.min.js"></script>
+  <script src="lib/iosOverlay/iosOverlay.js"></script>
+  <script src="lib/iosOverlay/spin.min.js"></script>
+  
+  <script type="text/javascript">
+    var app = angular.module("app", ["ui.router"]);
+
+    app.config(function ($stateProvider, $urlRouterProvider) {
+      $stateProvider
+        .state('/list', {
+          url: '',
+          templateUrl: 'list.html',
+          controller: 'ListCtrl',
+        })
+        .state('/image', {
+          url: '/image',
+          templateUrl: 'detail.html',
+          controller: 'DetailCtrl',
+        });
+    });
+
+    app.filter('encode', function() {
+      return window.encodeURIComponent;
+    });
+
+    app.service("files", function() {
+      return [
+        {"small": "SMALL/R0010282_cafe.jpg", "big": "BIG/R0010282_cafe.JPG"},
+        {"small": "SMALL/R0010287_room.jpg", "big": "BIG/R0010287_room.JPG"},
+        {"small": "SMALL/R0010288_toilets.jpg", "big": "BIG/R0010288_toilets.JPG"},
+        {"small": "SMALL/R0010290_pool.jpg", "big": "BIG/R0010290_pool.JPG"},
+        {"small": "SMALL/R0010291_wip.jpg", "big": "BIG/R0010291_wip.JPG"},
+        {"small": "SMALL/R0010294_art1.jpg", "big": "BIG/R0010294_art1.JPG"},
+        {"small": "SMALL/R0010295_art2.jpg", "big": "BIG/R0010295_art2.JPG"},
+        {"small": "SMALL/R0010296_art.jpg", "big": "BIG/R0010296_art.JPG"},
+        {"small": "SMALL/R0010297_art.jpg", "big": "BIG/R0010297_art.JPG"},
+        {"small": "SMALL/R0010301_sala.jpg", "big": "BIG/R0010301_sala.JPG"},
+        {"small": "SMALL/R0010302_sala.jpg", "big": "BIG/R0010302_sala.JPG"},
+        {"small": "SMALL/R0010303_water.jpg", "big": "BIG/R0010303_water.JPG"},
+        {"small": "SMALL/R0010304_outdoor.jpg", "big": "BIG/R0010304_outdoor.JPG"},
+        {"small": "SMALL/R0010307_portal.jpg", "big": "BIG/R0010307_portal.JPG"},
+        {"small": "SMALL/R0010308_portal.jpg", "big": "BIG/R0010308_portal.JPG"},
+        {"small": "SMALL/R0010309_stress.jpg", "big": "BIG/R0010309_stress.JPG"},
+        {"small": "SMALL/R0010310_path.jpg", "big": "BIG/R0010310_path.JPG"},
+        {"small": "SMALL/R0010313_night.jpg", "big": "BIG/R0010313_night.JPG"},
+        {"small": "SMALL/R0010315_portal.jpg", "big": "BIG/R0010315_portal.JPG"},
+        {"small": "SMALL/R0010323_hut.jpg", "big": "BIG/R0010323_hut.JPG"},
+        {"small": "SMALL/R0010334_music.jpg", "big": "BIG/R0010334_music.JPG"},
+        {"small": "SMALL/R0010340_usic.jpg", "big": "BIG/R0010340_usic.JPG"},
+        {"small": "SMALL/R0010343_whale.jpg", "big": "BIG/R0010343_whale.JPG"}
+      ];
+    })
+
+    app.controller("ListCtrl", function($rootScope, $location, $scope, files) {
+
+      console.log($location.search("url"));
+
+      $rootScope.files = $rootScope.files || files;
+
+    });
+
+  </script>
+  <script src="DetailCtrl.js"></script>
+  <script src="overlay.js"></script>
+  <script src="viewer.js"></script>
+  <!-- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.min.js"></script> 
+  -->
+
+</html>
